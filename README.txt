@@ -1,1 +1,0 @@
-Laranjacms is a RESTful Web Content Management System based on Laravel Framework. It has  a flexibility, extensible and pluggable architecture, you can easily use it to build everything from personal blogs to enterprise applications.
