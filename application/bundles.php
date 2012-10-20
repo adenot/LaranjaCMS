@@ -36,5 +36,12 @@
 return array(
 
 	'docs' => array('handles' => 'docs'),
+	'laranja' => array(
+		'handles' => 'laranja', 
+		'auto' => true,
+	),
+
+	
+	'bob',
 
 );
