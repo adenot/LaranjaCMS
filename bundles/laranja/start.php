@@ -1,5 +1,10 @@
 <?php
 
+Auth::extend('laranja_auth', function()
+{
+	return new Laranja_Auth;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Auto-Loader Mappings
