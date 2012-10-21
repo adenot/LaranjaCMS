@@ -1,12 +1,22 @@
 <?php
 
-// Exposes all controllers with routes to it
-Route::controller(Controller::detect());
 
-// Route for Laranja_Api_Controller
-//Route::controller('laranja::api');
+// 
+// USER 
+//
+Route::any('(:bundle)/api/user/auth', 'laranja::api.user@auth');
 
-Route::get('(:bundle)', function()
-{
-	return "test";
-});
+Route::any('(:bundle)/api/user/create', 'laranja::api.user@create');
+Route::any('(:bundle)/api/user/update', 'laranja::api.user@update');
+
+
+
+
+
+
+
+
+
+// 
+// 3 Level paths:
+//Route::any('(:bundle)/(:any)/(:any)/(:any)', 'laranja::(:1).(:2)@(:3)');

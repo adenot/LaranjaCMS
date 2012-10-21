@@ -21,7 +21,7 @@ Auth::extend('laranja_auth', function()
 */
 
 Autoloader::map(array(
-
+	'Laranja_Api_Base_Controller' => path('bundle') . 'laranja/controllers/api/base.php',
 ));
 
 /*

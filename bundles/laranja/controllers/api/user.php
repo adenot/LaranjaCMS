@@ -1,10 +1,11 @@
 <?php
 
-class Laranja_Api_User_Controller extends Base_Controller {
+class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 
-    public $restful = true;
+	public function get_auth() {
+		return "get_auth";
+	}
 
-	
 	public function post_auth() {
 		$input = Input::json();
 		
