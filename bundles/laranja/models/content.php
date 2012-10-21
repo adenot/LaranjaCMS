@@ -1,6 +1,6 @@
 <?php
 
-class LaranjaContent extends Eloquent {
+class Laranja_Content extends Eloquent {
 	public static $table = 'laranja_content';
 	public static $timestamps = false;
 	

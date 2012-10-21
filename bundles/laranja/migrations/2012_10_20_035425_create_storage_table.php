@@ -11,7 +11,7 @@ class Laranja_Create_Storage_Table {
 	{
 		Schema::create('laranja_storage', function($table) {
 			$table->string('id', 64)->primary()->unique();
-			$table->blob('content');
+			$table->blob('data');
 			$table->timestamps();
 		});
 	}

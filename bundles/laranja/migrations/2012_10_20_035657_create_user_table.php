@@ -13,7 +13,8 @@ class Laranja_Create_User_Table {
 			$table->string('username')->primary();
 			$table->string('storage_id', 64)->unique();
 			
-			$table->foreign('storage_id')->references('id')->on('laranja_storage');
+			// loose referencing will work better with caching
+			//$table->foreign('storage_id')->references('id')->on('laranja_storage');
 		});
 	}
 

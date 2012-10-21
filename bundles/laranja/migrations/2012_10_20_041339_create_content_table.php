@@ -13,7 +13,7 @@ class Laranja_Create_Content_Table {
 			$table->string('path')->primary();
 			$table->string('storage_id', 64)->unique();
 			
-			$table->foreign('storage_id')->references('id')->on('laranja_storage');
+			//$table->foreign('storage_id')->references('id')->on('laranja_storage');
 		});
 	}
 
