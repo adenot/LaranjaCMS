@@ -26,23 +26,31 @@ class Laranja_Auth extends Laravel\Auth\Drivers\Driver {
 	 */
 	public function attempt($arguments = array())
 	{
-		
 		$username = Config::get('auth.username');
 
 		$user = $this->model()
 			->where($username, '=', $arguments['username'])
 			->first();
-
-		$user_storage = unserialize($this->model()->storage());
 		
-		print_r($user_storage);
-			
+		// User does not exist
+		if (is_null($user)) { 
+			return false; 
+		}
+		
+		$user_storage = $user->storage->get_data();
+		
+		// Storage missing
+		if (!$user_storage) 
+		{ 
+			return false; 
+		}
+					
 		// This driver uses a basic username and password authentication scheme
 		// so if the credentials match what is in the database we will just
 		// log the user into the application and remember them if asked.
 		$password = $arguments['password'];
 
-		if ( ! is_null($user) and Hash::check($password, $user->password))
+		if (Hash::check($password, $user_storage['password']))
 		{
 			return $this->login($user->id, array_get($arguments, 'remember'));
 		}

@@ -21,7 +21,16 @@ Auth::extend('laranja_auth', function()
 */
 
 Autoloader::map(array(
+	/* Laravel Core Extensions */
+	'Laranja_Auth' => path('bundle') . 'laranja/extensions/auth.php',
+	
+	/* Controllers */
 	'Laranja_Api_Base_Controller' => path('bundle') . 'laranja/controllers/api/base.php',
+	
+	/* Models */
+	'Laranja_User' => path('bundle') . 'laranja/models/user.php',
+	'Laranja_Storage' => path('bundle') . 'laranja/models/storage.php',
+	'Laranja_Content' => path('bundle') . 'laranja/models/content.php',
 ));
 
 /*

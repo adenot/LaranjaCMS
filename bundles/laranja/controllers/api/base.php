@@ -15,6 +15,12 @@ class Laranja_Api_Base_Controller extends Controller {
 		return Response::error('404');
 	}
 	
+	protected function _resultFail($errors, $status = 0) {
+		$result = array('status' => 0, 'errors' => $errors->messages);
+		
+		return json_encode($result);
+	}
+	
 	public function get() {
 		return "Get_Api_Base";
 	}
