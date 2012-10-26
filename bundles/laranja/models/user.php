@@ -1,10 +1,21 @@
 <?php
 
-class Laranja_User extends Eloquent {
-	public static $table = 'laranja_user';
-	public static $timestamps = false;
+class LaranjaUser extends LaranjaStorage {
+	const PREFIX = 'user$';
 	
-	public function storage() {
-		return $this->belongs_to('Laranja_Storage', 'storage_id');
+	static public function get_storage($key) 
+	{
+		return parent::_get_storage(self::PREFIX, $key);
+	}
+	
+	static public function generate_storage_id($key) 
+	{
+		return parent::_generate_storage_id(self::PREFIX, $key);
+	}
+	
+	public function save() 
+	{
+		$this->type = 'user';
+		return parent::save();
 	}
 }

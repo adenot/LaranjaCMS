@@ -16,7 +16,19 @@ class Laranja_Api_Base_Controller extends Controller {
 	}
 	
 	protected function _resultFail($errors, $status = 0) {
-		$result = array('status' => 0, 'errors' => $errors->messages);
+		if (is_string($errors)) {
+			$errors_messages = array($errors);
+		} else {
+			$errors_messages = $errors->messages;
+		}
+		
+		$result = array('status' => $status, 'errors' => $errors_messages);
+		
+		return json_encode($result);
+	}
+	
+	protected function _resultSuccess($message, $status = 1) {
+		$result = array('status' => $status, 'message' => $message);
 		
 		return json_encode($result);
 	}

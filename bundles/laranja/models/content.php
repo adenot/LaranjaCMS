@@ -1,10 +1,21 @@
 <?php
 
-class Laranja_Content extends Eloquent {
-	public static $table = 'laranja_content';
-	public static $timestamps = false;
+class LaranjaContent extends LaranjaStorage {
+	const PREFIX = 'content$';
 	
-	public function storage() {
-		return $this->has_one('LaranjaStorage');
+	static public function get_storage($key) 
+	{
+		return parent::_get_storage(self::PREFIX, $key);
+	}
+	
+	static public function generate_storage_id($key) 
+	{
+		return parent::_generate_storage_id(self::PREFIX, $key);
+	}
+	
+	public function save() 
+	{
+		$this->type = 'content';
+		return parent::save();
 	}
 }

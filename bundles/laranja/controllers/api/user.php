@@ -2,11 +2,11 @@
 
 class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 
-	public function get_auth() {
-		return "get_auth";
-	}
+	const MSG_UPDATE_SUCCESS = 'User saved';
+	const MSG_UPDATE_ERROR = 'Error while saving';
 	
-	public function post_update() {
+	public function post_update() 
+	{
 		/* Test input:
 		{"username": "adenot", "password": "password", "password_confirmation": "password", "email": "adenot@gmail.com", "role": 1}
 		*/
@@ -25,26 +25,44 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 		   
 		$validation = Validator::make(get_object_vars($input), $rules);
 		
-		if ($validation->fails()) {
+		if ($validation->fails()) 
+		{
 			return $this->_resultFail($validation->errors);
 		}
 		
-		$storage_id = Hash::make($input->username);
+		$meta_data = array(
+			'username' => $input->username,
+		);
 		
-		$user = new Laranja_User();
-		$user->username = $input->username;
-		$user->storage_id = $storage_id;
+		$user = LaranjaUser::get_storage($input->username);
 		
-		$storage = new Laranja_Storage();
-		$storage->id = $storage_id;
-		$storage->set_data(array(
+		if ( ! $user) 
+		{
+			/* new user */
+
+			$user = new LaranjaUser();
+			
+			$user->id = $user->generate_storage_id($input->username);
+
+		}
+		
+		$user->set_data(array(
 			'password' => Hash::make($input->password),
 			'email' => $input->email,
 		));
 		
-		$storage->user()->insert($user);
-		$storage->save();
+		$user->set_meta_data($meta_data);
+
+		$ret = $user->save();
 		
+		if ($ret) 
+		{ 
+			return $this->_resultSuccess(self::MSG_UPDATE_SUCCESS);
+		}
+		else 
+		{
+			return $this->_resultFail(self::MSG_UPDATE_ERROR);
+		}
 		
 	}
 
@@ -55,7 +73,8 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 	 *   String password
 	 *   Boolean remember
 	 */
-	public function post_auth() {
+	public function post_auth() 
+	{
 		/* Test input:
 		{"username": "adenot", "password": "password", "remember": 1}
 		*/
@@ -70,7 +89,8 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 		
 		$validation = Validator::make(get_object_vars($input), $rules);
 		
-		if ($validation->fails()) {
+		if ($validation->fails()) 
+		{
 			return $this->_resultFail($validation->errors);
 		}
 		
