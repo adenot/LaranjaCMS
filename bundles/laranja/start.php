@@ -28,9 +28,9 @@ Autoloader::map(array(
 	'Laranja_Api_Base_Controller' => path('bundle') . 'laranja/controllers/api/base.php',
 	
 	/* Models */
-	'Laranja_User' => path('bundle') . 'laranja/models/user.php',
-	'Laranja_Storage' => path('bundle') . 'laranja/models/storage.php',
-	'Laranja_Content' => path('bundle') . 'laranja/models/content.php',
+	'LaranjaUser' => path('bundle') . 'laranja/models/user.php',
+	'LaranjaStorage' => path('bundle') . 'laranja/models/storage.php',
+	'LaranjaContent' => path('bundle') . 'laranja/models/content.php',
 ));
 
 /*
