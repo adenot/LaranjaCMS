@@ -5,6 +5,10 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 	const MSG_UPDATE_SUCCESS = 'User saved';
 	const MSG_UPDATE_ERROR = 'Error while saving';
 	
+	const MSG_AUTH_SUCCESS = 'User logged in';
+	const MSG_AUTH_FAIL = 'Username or password invalid';
+	const MSG_AUTH_LOGOUT_SUCCESS = 'User logged out';
+	
 	public function post_update() 
 	{
 		/* Test input:
@@ -102,12 +106,19 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 		
 		if (Auth::attempt($credentials))
 		{
-			return json_encode(array('status' => 1));
+			return $this->_resultSuccess(self::MSG_AUTH_SUCCESS);
 		} 
 		else
 		{
-			return json_encode(array('status' => 0));
+			return $this->_resultFail(self::MSG_AUTH_FAIL);
 		}
+	}
+	
+	public function post_logout()
+	{
+		Auth::logout();
+		
+		return $this->_resultSuccess(self::MSG_AUTH_LOGOUT_SUCCESS);
 	}
 
 }

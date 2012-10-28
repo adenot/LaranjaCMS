@@ -10,12 +10,9 @@ class Laranja_Auth extends Laravel\Auth\Drivers\Driver {
 	 * @param  int         $id
 	 * @return mixed|null
 	 */
-	public function retrieve($id)
+	public function retrieve($username)
 	{
-		if (filter_var($id, FILTER_VALIDATE_INT) !== false)
-		{
-			return $this->model()->find($id);
-		} 
+		return $this->model()->get_storage($username);
 	}
 
 	/**
@@ -28,31 +25,29 @@ class Laranja_Auth extends Laravel\Auth\Drivers\Driver {
 	{
 		$username = Config::get('auth.username');
 
-		$user = $this->model()
-			->where($username, '=', $arguments['username'])
-			->first();
+		$user = LaranjaUser::get_storage($arguments['username']);
 		
 		// User does not exist
-		if (is_null($user)) { 
+		if ( ! $user) { 
 			return false; 
 		}
 		
-		$user_storage = $user->storage->get_data();
+		$data = $user->get_data();
 		
 		// Storage missing
-		if (!$user_storage) 
+		if ( ! $data) 
 		{ 
 			return false; 
 		}
-					
+
 		// This driver uses a basic username and password authentication scheme
 		// so if the credentials match what is in the database we will just
 		// log the user into the application and remember them if asked.
 		$password = $arguments['password'];
 
-		if (Hash::check($password, $user_storage['password']))
+		if (Hash::check($password, $data['password']))
 		{
-			return $this->login($user->id, array_get($arguments, 'remember'));
+			return $this->login($arguments['username'], array_get($arguments, 'remember'));
 		}
 
 		return false;

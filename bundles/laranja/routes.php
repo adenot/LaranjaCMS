@@ -4,10 +4,11 @@
 // 
 // USER 
 //
-Route::any('(:bundle)/api/user/auth', 'laranja::api.user@auth');
+Route::post('(:bundle)/api/user/auth', 'laranja::api.user@auth');
+Route::post('(:bundle)/api/user/logout', 'laranja::api.user@logout');
 
-Route::any('(:bundle)/api/user/create', 'laranja::api.user@create');
-Route::any('(:bundle)/api/user/update', 'laranja::api.user@update');
+Route::post('(:bundle)/api/user/create', 'laranja::api.user@create');
+Route::post('(:bundle)/api/user/update', 'laranja::api.user@update');
 
 // 
 // CONTENT

@@ -22,6 +22,11 @@ class Laranja_Api_Content_Controller extends Laranja_Api_Base_Controller {
 		/* Test input:
 		{"path": "hero", "data": { "content": "hero banner" } }
 		*/
+		
+		if ( ! $this->auth() )
+		{
+			return;
+		}
 	
 		$input = Input::json();
 	

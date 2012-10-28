@@ -68,6 +68,6 @@ return array(
 	|
 	*/
 
-	'table' => 'laranja_user',
+	'table' => '',
 
 );

@@ -3,6 +3,12 @@
 class Laranja_Api_Base_Controller extends Controller {
 	public $restful = true;
 
+	const MSG_AUTH_FAIL = 'Not authenticated';
+	
+	const CODE_SUCCESS = 1;
+	const CODE_FAIL = 0;
+	const CODE_FAIL_AUTH = -1;
+	
 	/**
 	 * Catch-all method for requests that can't be matched.
 	 *
@@ -15,7 +21,7 @@ class Laranja_Api_Base_Controller extends Controller {
 		return Response::error('404');
 	}
 	
-	protected function _resultFail($errors, $status = 0) {
+	protected function _resultFail($errors, $status = self::CODE_FAIL) {
 		if (is_string($errors)) {
 			$errors_messages = array($errors);
 		} else {
@@ -27,10 +33,20 @@ class Laranja_Api_Base_Controller extends Controller {
 		return json_encode($result);
 	}
 	
-	protected function _resultSuccess($message, $status = 1) {
+	protected function _resultSuccess($message, $status = self::CODE_SUCCESS) {
 		$result = array('status' => $status, 'message' => $message);
 		
 		return json_encode($result);
+	}
+	
+	protected function auth() {
+		if ( ! Auth::check())
+		{
+			echo self::_resultFail(self::MSG_AUTH_FAIL, self::CODE_FAIL_AUTH);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public function get() {
