@@ -12,7 +12,7 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 	public function post_update() 
 	{
 		/* Test input:
-		{"username": "adenot", "password": "password", "password_confirmation": "password", "email": "adenot@gmail.com", "role": 1}
+		{"username": "adenot", "password": "password", "password_confirmation": "password", "email": "adenot@gmail.com", "role": 1 }
 		*/
 	
 		$input = Input::json();
@@ -24,6 +24,11 @@ class Laranja_Api_User_Controller extends Laranja_Api_Base_Controller {
 			'role' => 'required',
 		);
 
+		/* TODO: Check auth */
+		if ( ! $this->auth() )
+		{
+			return;
+		}
 		/* TODO: Role can be refused if the logged is trying to create 
 		   another user with higher role them him/her */
 		   
