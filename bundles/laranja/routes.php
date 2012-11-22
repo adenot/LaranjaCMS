@@ -19,7 +19,11 @@ Route::post('(:bundle)/api/content/update', 'laranja::api.content@update');
 // get content
 Route::get('(:bundle)/get/(:any)', 'laranja::api.content@open');
 
-
+//
+// FRONT END
+//
+// Index
+Route::get('(.*)', 'laranja::page@index');
 
 
 
