@@ -7,20 +7,34 @@ class Laranja_Api_Content_Controller extends Laranja_Api_Base_Controller {
 	
 	public function get_open($path) 
 	{
-		/* TODO: Check authentication and content permission */
+		/* TODO: Do we want to restrict content based on authenticated user or only published/date? */
 		
 		if ( empty($path) ) return;
 
 		$content = LaranjaContent::get_storage($path);
 		
-		return var_export($content,true);
+		$returnable = new stdClass();
+		$returnable->id = $content->id;
+		$returnable->data = $content->data;
+		
+		return json_encode($returnable);
 		
 	}
 	
 	public function post_update() 
 	{
 		/* Test input:
-		{"path": "hero", "data": { "content": "hero banner" } }
+		{"path": "/hero", "data": { "content": "hero banner" } }
+		{
+			"path": "/", 
+			"data": { 
+				"children": [{ 
+					"path": "/hero",
+					"grid": [ 0 ],
+					"order": 0
+				}]
+			} 
+		}
 		*/
 		
 		if ( ! $this->auth() )
