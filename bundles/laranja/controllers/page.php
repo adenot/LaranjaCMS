@@ -43,17 +43,17 @@ class Laranja_Page_Controller extends Base_Controller {
 			  Static: loaded by laravel in the server
 			     change based on base-path /something
 		*/
-		
-		$content = LaranjaContent::get_storage($path);
-		
-		if ( ! $content) 
+
+        $page = new Page($path);
+
+		if ( ! $page->exists())
 		{
 			return Response::error('404');
 		}
 	
-		$data = $content->get_data();
+		$content = $page->fetch_children();
 		
-		//var_dump($data);return;
+		echo json_encode($content);return;
 		
 		
 		

@@ -45,5 +45,5 @@ Autoloader::map(array(
 */
 
 Autoloader::directories(array(
-
+    path('bundle') . 'laranja/libraries',
 ));
