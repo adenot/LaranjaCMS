@@ -74,6 +74,8 @@ class Laranja_Api_Content_Controller extends Laranja_Api_Base_Controller {
 			'data' => 'required',
 		);
 
+		/* TODO: Check for JSON syntax correctness */
+
         if ( ! is_array($input_raw))
         {
             $input_raw = array($input_raw);
